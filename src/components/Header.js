@@ -14,7 +14,7 @@ export const Header=(props)=>{
     }
 
     return (
-        <Box className="Header">
+        <div className="Header">
             <Box> 
                 <h3>TeeRex Store</h3>  
             </Box>
@@ -30,7 +30,7 @@ export const Header=(props)=>{
                 
                 <Paper 
                 elevation={3} 
-                className={props.cart ? "cart bottom-border" : "cart"} 
+                className={props.cart ? "cart-icon bottom-border" : "cart-icon"} 
                 onClick={()=>{ page_nav("cart") }}>
                     <ShoppingCartIcon />
                     {
@@ -38,7 +38,7 @@ export const Header=(props)=>{
                     }
                 </Paper>
             </Box>
-        </Box>
+        </div>
     );
 
 }

@@ -22,11 +22,12 @@
     padding: 10px;
     align-items: center;
 } 
-.cart{
+.cart-icon{
     display: flex;
     padding: 10px;
     cursor: pointer;
     align-items: center;
+    justify-content: center;
     width: 2rem;
     background-color:rgb(246, 247, 246) !important;
     position: relative;
@@ -36,7 +37,8 @@
     display: flex;
     justify-content: space-between;
     background-color: lightgray;
-    position: relative;
+    position:sticky;
+    
     padding:0 4rem;
 }
 
@@ -44,6 +46,6 @@
     position: absolute;
     top: 0;
     right: 5px;
-    font-size: medium;
+    font-size: small;
     font-weight: 600;
 }

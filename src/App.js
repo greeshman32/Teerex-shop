@@ -12,7 +12,7 @@ export function App() {
 
   const [products, setProducts] = useState(()=>[]);
   const [count, setCount] = useState(()=>0);
-  
+  const [total,setTotal] = useState(()=>0);
   
   const fetch_API= async()=>{
     let data = await axios.get("https://geektrust.s3.ap-southeast-1.amazonaws.com/coding-problems/shopping-cart/catalogue.json");
@@ -32,12 +32,11 @@ export function App() {
   },[]);
   
   const manipulate_cart=(id,value)=>{
-    
-    setProducts(prev=>{
-      prev[id-1].cart+=value;
-      return prev;
-    })
-    
+    let temp=[...products];
+    temp[id-1].cart+=value;
+
+    setProducts(temp);
+    setTotal(prev=> prev+(products[id-1].price*value));
     setCount(prev=>prev+value);
 
   }
@@ -47,8 +46,14 @@ export function App() {
   }
   
   const add_to_cart=(id)=>{
+    const message=()=>{
+      if(products[id-1].cart === 0 ) return "Out of Stock";
+      else if(products[id-1].cart === 1) return "Only 1 "+products[id-1].name+" avilable"; 
+      else return "Only " + products[id-1].quantity+" " + products[id-1].name + "s available";  
+    }
+
     if(products[id-1].cart===products[id-1].quantity){
-      enqueueSnackbar("Only " + products[id-1].quantity+" are available",{persist:false, variant:"error"});
+      enqueueSnackbar(message(),{persist:false, variant:"warning"});
       return;
     }
       manipulate_cart(id,1);
@@ -66,7 +71,16 @@ export function App() {
           No_items = { count }
         />
         }/>
-        <Route path = "/cart" element = {<Cart No_items = { count } products = { products }/>} />
+        <Route path = "/cart" 
+        element = {
+        <Cart 
+        No_items = { count } 
+        products = { products }
+        manipulate_cart={manipulate_cart}
+        total={total}
+        add_to_cart={add_to_cart}
+        remove_from_cart={remove_from_cart}
+        />} />
       </Routes>    
   ); 
 
