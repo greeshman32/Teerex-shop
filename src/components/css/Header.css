@@ -1,0 +1,49 @@
+
+
+.bottom-border{
+    border-bottom: 4px solid; 
+    border-radius: 4px;
+    color: black;
+    transition: all 0;
+}
+
+.products{
+    display: flex;
+    color: black;
+    font-size: large;
+    font-weight: 500;
+    cursor: pointer;
+}
+.icons{
+    width: 200px;
+    justify-content: space-between;
+    position: relative;
+    display: flex;
+    padding: 10px;
+    align-items: center;
+} 
+.cart{
+    display: flex;
+    padding: 10px;
+    cursor: pointer;
+    align-items: center;
+    width: 2rem;
+    background-color:rgb(246, 247, 246) !important;
+    position: relative;
+}
+
+.Header{
+    display: flex;
+    justify-content: space-between;
+    background-color: lightgray;
+    position: relative;
+    padding:0 4rem;
+}
+
+.number{
+    position: absolute;
+    top: 0;
+    right: 5px;
+    font-size: medium;
+    font-weight: 600;
+}
