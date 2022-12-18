@@ -5,29 +5,10 @@ import "./css/ProductCard.css"
 
 export const ProductCard = (props) => {
     const { product }=  props;
-
-
-    // const button_logic=()=>{
-           
-    //     return (
-    //         <>
-    //             { !props.product.cart ?
-    //                 <button className="add button" onClick={()=>props.add_to_cart(product.id)}>ADD TO CART</button> : (
-    //                 <> 
-    //                 <button className="add button" onClick={()=>props.add_to_cart(product.id)}>+</button> 
-    //                 {product.cart} 
-    //                 <button className="remove button" onClick={()=>props.remove_from_cart(product.id)}>-</button> 
-    //                 </>
-    //                 )
-    //             }
-    //         </>
-    //     );
-    // }
-
     
     return(
     <>
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ width: 400 }} >
       <CardMedia
         component="img"
         height="240"

@@ -17,7 +17,8 @@ export const Cart=(props)=>{
                     return (
                         <div className="content " key={product.id}>
                             <div className = "image">
-                                <img href = { product.imageURL } alt = "product_image" loading="lazy" />
+                                <img src = { product.imageURL } width={100} alt = "product_image" loading="lazy" />
+                                
                             </div>
 
                             <div className="product-details">
@@ -45,7 +46,7 @@ export const Cart=(props)=>{
 
         }
 
-        {props.total>0 && <div className="total"><h1>Total amount:</h1><div>Rs.{props.total}</div></div>}
+        {props.total>0 && <div className="total"><h1>Total amount:</h1><div className="total-price">Rs.{props.total}</div></div>}
     </div>
 
     </>;

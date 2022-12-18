@@ -1,17 +1,17 @@
 .cart{
     display: flex;
     flex-direction: column;
-    height: 90vh;
+    height: auto;
     width: 90hw;
-    justify-content: center;
-    
+    align-items: center;
+    padding: 50px 0 0 0;
 }
 .content{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     width: 100%;
-    align-items: center;
+    
 }
 
 .total{
@@ -20,6 +20,10 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    margin-top:  5%;
+    width: 60%;
+    border-top: 2px solid ;
+    padding: 1.5rem 0 ;
 }
 
 .cart-details{
@@ -49,4 +53,8 @@
     border:white;
     text-align: center;
     cursor: pointer;
+}
+.total-price{
+    font-weight: 600;
+    font-size: large;
 }
