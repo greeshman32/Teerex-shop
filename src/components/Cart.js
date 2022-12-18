@@ -5,11 +5,11 @@ import "./css/CartPage.css"
 export const Cart=(props)=>{
     
     
-    
+     
     return<>
     
     <Header products={false} cart={true} No_items={props.No_items}/>
-    
+    {props.total===0 && <h1 className="e-cart">Empty Cart</h1>}
     <div className="cart">
         {
             props.products.map(product=>{
@@ -23,7 +23,7 @@ export const Cart=(props)=>{
 
                             <div className="product-details">
                                 <h2>{product.name}</h2>
-                                Rs.{product.price}
+                                Rs.{product.price*product.cart}
                             </div>
                             
                             <div className="cart-details">
@@ -34,7 +34,7 @@ export const Cart=(props)=>{
                                 </div>
                                 <button 
                                 className="delete-button" 
-                                onClick={()=>{props.manipulate_cart(product.id,-product.cart)}}> 
+                                onClick={()=>{props.manipulate_cart(product.id, -product.cart)}}> 
                                     Delete
                                 </button>
                             </div>

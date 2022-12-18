@@ -8,7 +8,6 @@ export const SearchBar = (props) => {
 
     const handle_change = (e) => {
         search_terms=e.target.value;
-        console.log(search_terms);
     }
 
 
@@ -20,7 +19,7 @@ export const SearchBar = (props) => {
             fullWidth
             onChange={handle_change}
             variant="standard" />
-            <button className="search button" onClick={props.handle_search(search_terms)}><SearchIcon/></button>
+            <button className="search button" onClick={()=>props.handle_search(search_terms)}><SearchIcon/></button>
         </div>
     );
 }

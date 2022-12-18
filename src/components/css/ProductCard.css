@@ -14,7 +14,7 @@
     transition: all .15s;
     font-weight: 600;
     font-size: 15px;
-    
+    border-radius: 5px;
 }
 
 .add:hover{
@@ -51,4 +51,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.search:hover{
+    background-color: rgb(9, 159, 170);
+    border: 3px solid rgb(224, 192, 5);
 }

@@ -13,6 +13,8 @@ export function App() {
   const [products, setProducts] = useState(()=>[]);
   const [count, setCount] = useState(()=>0);
   const [total,setTotal] = useState(()=>0);
+
+  const [filters_used,setFilters_used] = useState(false);
 //API Calls  
   const fetch_API= async()=>{
     let data = await axios.get("https://geektrust.s3.ap-southeast-1.amazonaws.com/coding-problems/shopping-cart/catalogue.json");
@@ -91,19 +93,31 @@ export function App() {
       
       temp[i].display&=inrange;
     }
+    setFilters_used (
+      (filters.color.size !== 0) || 
+      (filters.gender.size !== 0) || 
+      (filters.type.size !== 0) || 
+      (filters.price.length !== 0));
     
     setProducts(temp);
   }
   //Search logic
 
   const handle_search= (search_value) => {
+    console.log(filters_used);
     search_value = search_value.toLowerCase();
     let temp = [...products];
+
     for(let i=0;i<30;i++){
       let { name } = temp[i];
-      name=name.toLowerCase(); 
-      if(name.search(search_value)===-1){
-        temp[i].display=false;
+      name = name.toLowerCase(); 
+
+      if( filters_used && temp[i].display && !name.includes(search_value) ){
+          temp[i].display = false ;
+      }
+      else if( !filters_used ){
+        if( name.includes(search_value) ) temp[i].display = true;
+        else temp[i].display = false;
       }
     }
     setProducts(temp);

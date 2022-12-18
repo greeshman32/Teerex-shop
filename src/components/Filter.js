@@ -127,8 +127,8 @@ const Filters = (props) => {
           <SwipeableDrawer
             anchor="left"
             open={toggler}
-            onClose={handleToggler}
-            onOpen={handleToggler}
+            onClose={()=>handleToggler()}
+            onOpen={()=>handleToggler()}
             
           >
             {Filter_options()}

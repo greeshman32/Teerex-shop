@@ -21,7 +21,7 @@ export const Products=(props)=>{
             
             <Grid item xs={10} md={9}>
                 
-                    <SearchBar handle_search={props.handle_search}/>
+                    <SearchBar handle_search = {props.handle_search}/>
                     <Grid container spacing={5} key={"cards"}>
                         
                         {props.products.map((product) => {
