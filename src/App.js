@@ -104,7 +104,7 @@ export function App() {
   //Search logic
 
   const handle_search= (search_value) => {
-    console.log(filters_used);
+    
     search_value = search_value.toLowerCase();
     let temp = [...products];
 
@@ -116,7 +116,8 @@ export function App() {
           temp[i].display = false ;
       }
       else if( !filters_used ){
-        if( name.includes(search_value) ) temp[i].display = true;
+        
+        if( name.search(search_value)!==-1 ) temp[i].display = true;
         else temp[i].display = false;
       }
     }

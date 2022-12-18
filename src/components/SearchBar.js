@@ -1,13 +1,14 @@
 import { TextField } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import "./css/SearchBar.css"
+import { useState } from "react";
 
 export const SearchBar = (props) => {
 
-    let search_terms='';
+    const [ search_terms, setSearch_Value ]=useState('');
 
     const handle_change = (e) => {
-        search_terms=e.target.value;
+        setSearch_Value(e.target.value);
     }
 
 
