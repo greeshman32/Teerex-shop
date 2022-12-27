@@ -15,6 +15,20 @@ export function App() {
   const [total,setTotal] = useState(()=>0);
 
   const [filters_used,setFilters_used] = useState(false);
+  const [checkbox,setCheckbox]=useState(()=>{return {
+    Red:false,
+    Blue:false,
+    Green:false,
+    Men:false,
+    Women:false,
+    "0 - 250Rs":false,
+    "250Rs - 450Rs":false,
+    "450Rs":false,
+    Polo:false,
+    Hoodie:false,
+    Basic:false,
+  }});
+  const [filters, setFilters] = useState({Color:new Map(),Gender:new Map(),Price:[],Type:new Map()});
 //API Calls  
   const fetch_API= async()=>{
     let data = await axios.get("https://geektrust.s3.ap-southeast-1.amazonaws.com/coding-problems/shopping-cart/catalogue.json");
@@ -64,23 +78,23 @@ export function App() {
 
   const filter_changes=(filters)=>{
     let temp=[...products];
-    console.log("filter")
+
     for(let i=0;i<temp.length;i++){
 
       // checks if any checkbox is selected or 
       // checks the value is in the map of that type
       temp[i].display=(
-        (filters.color.size === 0 || filters.color.has(temp[i].color)) &&
-        (filters.gender.size === 0 || filters.gender.has(temp[i].gender)) &&
-        (filters.type.size === 0 || filters.type.has(temp[i].type))
+        (filters.Color.size === 0 || filters.Color.has(temp[i].color)) &&
+        (filters.Gender.size === 0 || filters.Gender.has(temp[i].gender)) &&
+        (filters.Type.size === 0 || filters.Type.has(temp[i].type))
       );
       
-      let inrange = filters.price.length === 0;
+      let inrange = filters.Price.length === 0;
       const { price } = temp[i];
 
-      for(let j=0;j<filters.price.length;j++){
+      for(let j=0;j<filters.Price.length;j++){
         
-        const [ lower_bound, upper_bound ]= filters.price[j];
+        const [ lower_bound, upper_bound ]= filters.Price[j];
         
         if(lower_bound <= price && upper_bound >= price){
           inrange = true;
@@ -93,11 +107,12 @@ export function App() {
       
       temp[i].display&=inrange;
     }
+    //used to check if the filters are set, while implement the search.
     setFilters_used (
-      (filters.color.size !== 0) || 
-      (filters.gender.size !== 0) || 
-      (filters.type.size !== 0) || 
-      (filters.price.length !== 0));
+      (filters.Color.size !== 0) || 
+      (filters.Gender.size !== 0) || 
+      (filters.Type.size !== 0) || 
+      (filters.Price.length !== 0));
     
     setProducts(temp);
   }
@@ -111,10 +126,11 @@ export function App() {
     for(let i=0;i<30;i++){
       let { name } = temp[i];
       name = name.toLowerCase(); 
-
+     // checks for filtered elements and eleminate the non matching searches
       if( filters_used && temp[i].display && !name.includes(search_value) ){
           temp[i].display = false ;
       }
+      // if no filteres applied dose a normal search
       else if( !filters_used ){
         
         if( name.search(search_value)!==-1 ) temp[i].display = true;
@@ -136,6 +152,10 @@ export function App() {
           No_items = { count }
           filter_changes={filter_changes}
           handle_search={handle_search}
+          filters={filters}
+          setFilters={setFilters}
+          checkbox={checkbox}
+          setCheckbox={setCheckbox}
         />
         }/>
         <Route path = "/cart" 

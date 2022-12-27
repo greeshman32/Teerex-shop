@@ -15,7 +15,12 @@ export const Products=(props)=>{
         <Grid container>
             <Grid item xs={2} md={3} style={{display:"fixed",}}>
                 
-                    <Filters filter_changes={props.filter_changes}/> 
+                    <Filters 
+                    filter_changes={props.filter_changes} 
+                    filters={props.filters}
+                    setFilters={props.setFilters}
+                    checkbox={props.checkbox}
+                    setCheckbox={props.setCheckbox}/> 
         
             </Grid>
             

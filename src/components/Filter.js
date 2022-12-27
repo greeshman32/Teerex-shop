@@ -14,13 +14,35 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
 
 const Filters = (props) => {
+
+    const filter_list ={
+        Color:{
+            Red:"Red",
+            Blue:"Blue",
+            Green:"Green",
+        },
+        Gender:{
+            Men:"Men",
+            Women:"Women",
+        },
+        Price:{
+            "0 - 250Rs":[0,250],
+            "250Rs - 450Rs":[250,450],
+            "450Rs":[450,7000],
+        },
+        Type:{
+            Polo:"Polo",
+            Hoodie:"Hoodie",
+            Basic:"Basic",
+        },
+    };
+
     
-    const [filters, setFilters]= useState({color:new Map(),gender:new Map(),price:[],type:new Map()});
-
+    
     const remove_filter = (filter_name,value) => {
-        let temp = {...filters};
+        let temp = {...props.filters};
 
-        if(filter_name==="price"){
+        if(filter_name==="Price"){
             let index;
             for(let i=0;i<temp.price.length;i++){
                 if(temp.price[i][0]===value[0]) {
@@ -34,79 +56,61 @@ const Filters = (props) => {
             temp[filter_name].delete(value);
         }
         
-        setFilters(temp);
+        props.setFilters(temp);
     }
     
     const add_to_filter = (filter_name,value) => {
-        let temp = {...filters};
-        if(filter_name === "price"){
+        let temp = {...props.filters};
+        if(filter_name === "Price"){
             temp.price.push(value);
         }
         else{
             temp[filter_name].set(value,true);
         }
-        setFilters(temp);
+        props.setFilters(temp);
     }
 
     const handleEvent=(event,type,value)=>{
+        let temp=props.checkbox;
+        temp[value] = event.target.checked;
+        props.setCheckbox(temp);
         if(event.target.checked){
             add_to_filter(type,value);
         }
         else{
             remove_filter(type,value);
         }
-        props.filter_changes(filters);
+        props.filter_changes(props.filters);
     }
 
     const Filter_options=()=>{
         return (<>
-            <Grid>
+        {
+            Object.keys(filter_list).map((filter)=>{
+                return(<Grid key={filter}>
             <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}><h4>Color</h4></AccordionSummary>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />}><h4>{filter}</h4></AccordionSummary>
                     <AccordionDetails>
                         <FormGroup>
-                            <FormControlLabel control={<Checkbox onChange={(event)=>handleEvent(event,"color","Red")} />} label="Red" />
-                            <FormControlLabel control={<Checkbox onChange={(event)=>handleEvent(event,"color","Blue")}/>} label="Blue" />
-                            <FormControlLabel control={<Checkbox onChange={(event)=>handleEvent(event,"color","Green")}/>} label="Green"/>
+                        {Object.keys(filter_list[filter]).map((key) => {
+                            return <FormControlLabel 
+                                    control={
+                                        <Checkbox 
+                                        key={key}
+                                        checked={props.checkbox[key]}
+                                        onChange={(event)=>handleEvent(event,filter,filter_list[filter][key])} />} 
+                                        label={key} />
+                                    }
+                                )
+                        }
                         </FormGroup>
                     </AccordionDetails>
                 </Accordion>
-            </Grid>
-            <Grid>
-            <Accordion>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}><h4>Gender</h4></AccordionSummary>
-                <AccordionDetails>
-                    <FormGroup>
-                        <FormControlLabel control={<Checkbox onChange={(event)=>handleEvent(event,"gender","Men")}/>} label="Men" />
-                        <FormControlLabel control={<Checkbox onChange={(event)=>handleEvent(event,"gender","Women")}/>} label="Women" />
-                    </FormGroup>
-                </AccordionDetails>
-            </Accordion>
-            </Grid>
-            <Grid>
-            <Accordion>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}><h4>Price</h4></AccordionSummary>
-                <AccordionDetails>
-                    <FormGroup>
-                        <FormControlLabel control={<Checkbox onChange={(event)=>handleEvent(event,"price",[0,250])}/>} label="0 - Rs250" />
-                        <FormControlLabel control={<Checkbox onChange={(event)=>handleEvent(event,"price",[251,450])}/>} label="Rs251 - Rs450" />
-                        <FormControlLabel control={<Checkbox onChange={(event)=>handleEvent(event,"price",[450,4000])}/>} label="Rs450"/>
-                    </FormGroup>
-                </AccordionDetails>
-            </Accordion>
-            </Grid>
-            <Grid>
-            <Accordion>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}><h4>Type</h4></AccordionSummary>
-                <AccordionDetails>
-                    <FormGroup>
-                        <FormControlLabel control={<Checkbox onChange={(event)=>handleEvent(event,"type","Polo")}/>} label="Polo" />
-                        <FormControlLabel control={<Checkbox onChange={(event)=>handleEvent(event,"type","Hoodie")}/>} label="Hoodie" />
-                        <FormControlLabel control={<Checkbox onChange={(event)=>handleEvent(event,"type","Basic")}/>} label="Basic"/>
-                    </FormGroup>
-                </AccordionDetails>
-            </Accordion>
-            </Grid>
+            </Grid>);
+            })
+        }
+            
+            
             </>);
     }
     
@@ -135,9 +139,12 @@ const Filters = (props) => {
           </SwipeableDrawer>
           </Box>
           <Box
+          p={5}
+          
           sx={{
             display: { xs: 'none', md: 'block' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 200 },
+            position:'sticky'
           }}>
             {Filter_options()}
           </Box>
