@@ -15,7 +15,7 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
 const Filters = (props) => {
 
-    const filter_list ={
+    const filterList ={
         Color:{
             Red:"Red",
             Blue:"Blue",
@@ -39,7 +39,7 @@ const Filters = (props) => {
 
     
     
-    const remove_filter = (filter_name,value) => {
+    const removeFilter = (filter_name,value) => {
         let temp = {...props.filters};
 
         if(filter_name==="Price"){
@@ -59,7 +59,7 @@ const Filters = (props) => {
         props.setFilters(temp);
     }
     
-    const add_to_filter = (filter_name,value) => {
+    const addFilter = (filter_name,value) => {
         let temp = {...props.filters};
         if(filter_name === "Price"){
             temp.price.push(value);
@@ -75,30 +75,30 @@ const Filters = (props) => {
         temp[value] = event.target.checked;
         props.setCheckbox(temp);
         if(event.target.checked){
-            add_to_filter(type,value);
+            addFilter(type,value);
         }
         else{
-            remove_filter(type,value);
+            removeFilter(type,value);
         }
-        props.filter_changes(props.filters);
+        props.filterProducts(props.filters);
     }
 
-    const Filter_options=()=>{
+    const FilterOptions=()=>{
         return (<>
         {
-            Object.keys(filter_list).map((filter)=>{
+            Object.keys(filterList).map((filter)=>{
                 return(<Grid key={filter}>
-            <Accordion>
+                <Accordion>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}><h4>{filter}</h4></AccordionSummary>
                     <AccordionDetails>
                         <FormGroup>
-                        {Object.keys(filter_list[filter]).map((key) => {
+                        {Object.keys(filterList[filter]).map((key) => {
                             return <FormControlLabel 
                                     control={
                                         <Checkbox 
                                         key={key}
                                         checked={props.checkbox[key]}
-                                        onChange={(event)=>handleEvent(event,filter,filter_list[filter][key])} />} 
+                                        onChange={(event)=>handleEvent(event,filter,filterList[filter][key])} />} 
                                         label={key} />
                                     }
                                 )
@@ -135,7 +135,7 @@ const Filters = (props) => {
             onOpen={()=>handleToggler()}
             
           >
-            {Filter_options()}
+            {FilterOptions()}
           </SwipeableDrawer>
           </Box>
           <Box
@@ -146,7 +146,7 @@ const Filters = (props) => {
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 200 },
             position:'sticky'
           }}>
-            {Filter_options()}
+            {FilterOptions()}
           </Box>
     </div>
     );

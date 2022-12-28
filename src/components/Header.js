@@ -8,7 +8,7 @@ export const Header=(props)=>{
 
     const navigation=useNavigate();
     
-    const page_nav = (to_page) => {
+    const pageNavigation = (to_page) => {
         if(to_page==="products" && !props.products) navigation("/");
         else if(to_page==="cart" && !props.cart) navigation("/cart");
     }
@@ -22,7 +22,7 @@ export const Header=(props)=>{
             <Box className="icons">
                 
                 <span 
-                onClick={()=>{ page_nav("products") }}
+                onClick={()=>{ pageNavigation("products") }}
                 elevation={3} 
                 className={props.products ? "products bottom-border" : "products"}>
                     Products
@@ -31,10 +31,10 @@ export const Header=(props)=>{
                 <Paper 
                 elevation={3} 
                 className={props.cart ? "cart-icon bottom-border" : "cart-icon"} 
-                onClick={()=>{ page_nav("cart") }}>
+                onClick={()=>{ pageNavigation("cart") }}>
                     <ShoppingCartIcon />
                     {
-                        props.No_items>0 && <span className="number">{props.No_items}</span>
+                        props.cartItemsCount>0 && <span className="number">{props.cartItemsCount}</span>
                     }
                 </Paper>
             </Box>

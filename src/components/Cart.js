@@ -8,8 +8,8 @@ export const Cart=(props)=>{
      
     return<>
     
-    <Header products={false} cart={true} No_items={props.No_items}/>
-    {props.total===0 && <h1 className="e-cart">Empty Cart</h1>}
+    <Header products={false} cart={true} cartItemsCount={props.cartItemsCount}/>
+    {props.totalCost===0 && <h1 className="e-cart">Empty Cart</h1>}
     <div className="cart">
         {
             props.products.map(product=>{
@@ -28,13 +28,13 @@ export const Cart=(props)=>{
                             
                             <div className="cart-details">
                                 <div className="no_items">
-                                    <button className="bt" onClick={()=>props.add_to_cart(product.id)}>+</button>
+                                    <button className="bt" onClick={()=>props.addToCart(product.id)}>+</button>
                                     {product.cart}
-                                    <button className="bt" onClick={()=>props.remove_from_cart(product.id)}>-</button>
+                                    <button className="bt" onClick={()=>props.removeFromCart(product.id)}>-</button>
                                 </div>
                                 <button 
                                 className="delete-button" 
-                                onClick={()=>{props.manipulate_cart(product.id, -product.cart)}}> 
+                                onClick={()=>{props.manipulateCart(product.id, -product.cart)}}> 
                                     Delete
                                 </button>
                             </div>
@@ -46,7 +46,7 @@ export const Cart=(props)=>{
 
         }
 
-        {props.total>0 && <div className="total"><h1>Total amount:</h1><div className="total-price">Rs.{props.total}</div></div>}
+        {props.totalCost>0 && <div className="total"><h1>Total amount:</h1><div className="total-price">Rs.{props.totalCost}</div></div>}
     </div>
 
     </>;

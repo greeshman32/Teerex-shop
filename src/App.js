@@ -11,10 +11,10 @@ export function App() {
   const { enqueueSnackbar } = useSnackbar();
 
   const [products, setProducts] = useState(()=>[]);
-  const [count, setCount] = useState(()=>0);
-  const [total,setTotal] = useState(()=>0);
+  const [cartItemsCount, setCartItemsCount] = useState(()=>0);
+  const [totalCost,setTotal] = useState(()=>0);
 
-  const [filters_used,setFilters_used] = useState(false);
+  const [areFiltersUsed,setAreFiltersUsed] = useState(false);
   const [checkbox,setCheckbox]=useState(()=>{return {
     Red:false,
     Blue:false,
@@ -47,21 +47,21 @@ export function App() {
     fetch_API();
   },[]);
   //Cart logic
-  const manipulate_cart=(id,value)=>{
+  const manipulateCart=(id,value)=>{
     let temp=[...products];
     temp[id-1].cart+=value;
 
     setProducts(temp);
     setTotal(prev=> prev+(products[id-1].price*value));
-    setCount(prev=>prev+value);
+    setCartItemsCount(prev=>prev+value);
 
   }
 
-  const remove_from_cart=(id)=>{
-    manipulate_cart(id,-1);
+  const removeFromCart=(id)=>{
+    manipulateCart(id,-1);
   }
   
-  const add_to_cart = (id) => {
+  const addToCart = (id) => {
     const message = () => {
       if(products[id-1].cart === 0 ) return "Out of Stock";
       else if(products[id-1].cart === 1) return "Only 1 "+products[id-1].name+" avilable"; 
@@ -72,11 +72,11 @@ export function App() {
       enqueueSnackbar(message(),{persist:false, variant:"warning"});
       return;
     }
-      manipulate_cart(id,1);
+      manipulateCart(id,1);
   }
   //filter logic
 
-  const filter_changes=(filters)=>{
+  const filterProducts=(filters)=>{
     let temp=[...products];
 
     for(let i=0;i<temp.length;i++){
@@ -94,9 +94,9 @@ export function App() {
 
       for(let j=0;j<filters.Price.length;j++){
         
-        const [ lower_bound, upper_bound ]= filters.Price[j];
+        const [ lowerBound, upperBound ]= filters.Price[j];
         
-        if(lower_bound <= price && upper_bound >= price){
+        if(lowerBound <= price && upperBound >= price){
           inrange = true;
           break;
         }
@@ -108,7 +108,7 @@ export function App() {
       temp[i].display&=inrange;
     }
     //used to check if the filters are set, while implement the search.
-    setFilters_used (
+    setAreFiltersUsed (
       (filters.Color.size !== 0) || 
       (filters.Gender.size !== 0) || 
       (filters.Type.size !== 0) || 
@@ -118,7 +118,7 @@ export function App() {
   }
   //Search logic
 
-  const handle_search= (search_value) => {
+  const handleSearch= (search_value) => {
     
     search_value = search_value.toLowerCase();
     let temp = [...products];
@@ -127,11 +127,11 @@ export function App() {
       let { name } = temp[i];
       name = name.toLowerCase(); 
      // checks for filtered elements and eleminate the non matching searches
-      if( filters_used && temp[i].display && !name.includes(search_value) ){
+      if( areFiltersUsed && temp[i].display && !name.includes(search_value) ){
           temp[i].display = false ;
       }
       // if no filteres applied dose a normal search
-      else if( !filters_used ){
+      else if( !areFiltersUsed ){
         
         if( name.search(search_value)!==-1 ) temp[i].display = true;
         else temp[i].display = false;
@@ -147,11 +147,11 @@ export function App() {
         element = {
         <Products 
           products = { products }
-          add_to_cart = { add_to_cart }
-          remove_from_cart = { remove_from_cart }
-          No_items = { count }
-          filter_changes={filter_changes}
-          handle_search={handle_search}
+          addToCart = { addToCart }
+          removeFromCart = { removeFromCart }
+          cartItemsCount = { cartItemsCount }
+          filterProducts={filterProducts}
+          handleSearch={handleSearch}
           filters={filters}
           setFilters={setFilters}
           checkbox={checkbox}
@@ -161,12 +161,12 @@ export function App() {
         <Route path = "/cart" 
         element = {
         <Cart 
-        No_items = { count } 
+        cartItemsCount = { cartItemsCount } 
         products = { products }
-        manipulate_cart={manipulate_cart}
-        total={total}
-        add_to_cart={add_to_cart}
-        remove_from_cart={remove_from_cart}
+        manipulateCart={manipulateCart}
+        totalCost={totalCost}
+        addToCart={addToCart}
+        removeFromCart={removeFromCart}
         />} />
       </Routes>    
   ); 

@@ -22,11 +22,11 @@ export const ProductCard = (props) => {
         <div className="details">
             <h3>₹{product.price}</h3>
             { (props.product.cart===0) ?
-                    <button className="add button" onClick={()=>props.add_to_cart(product.id)}>ADD TO CART</button> : (
+                    <button className="add button" onClick={()=>props.addToCart(product.id)}>ADD TO CART</button> : (
                     <> 
-                    <button className="add button" onClick={()=>props.add_to_cart(product.id)}>+</button> 
+                    <button className="add button" onClick={()=>props.addToCart(product.id)}>+</button> 
                     {product.cart} 
-                    <button className="remove button" onClick={()=>props.remove_from_cart(product.id)}>-</button> 
+                    <button className="remove button" onClick={()=>props.removeFromCart(product.id)}>-</button> 
                     </>
                     )
                 }

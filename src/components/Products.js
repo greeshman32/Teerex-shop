@@ -11,12 +11,12 @@ export const Products=(props)=>{
     
     return (
     <>
-        <Header products={true} cart={false} No_items={props.No_items} />
+        <Header products={true} cart={false} cartItemsCount={props.cartItemsCount} />
         <Grid container>
             <Grid item xs={2} md={3} style={{display:"fixed",}}>
                 
                     <Filters 
-                    filter_changes={props.filter_changes} 
+                    filterProducts={props.filterProducts} 
                     filters={props.filters}
                     setFilters={props.setFilters}
                     checkbox={props.checkbox}
@@ -26,7 +26,7 @@ export const Products=(props)=>{
             
             <Grid item xs={10} md={9}>
                 
-                    <SearchBar handle_search = {props.handle_search}/>
+                    <SearchBar handleSearch = {props.handleSearch}/>
                     <Grid container spacing={5} key={"cards"}>
                         
                         {props.products.map((product) => {
@@ -37,8 +37,8 @@ export const Products=(props)=>{
                                 
                                     <ProductCard 
                                     product={product} 
-                                    add_to_cart={props.add_to_cart} 
-                                    remove_from_cart={props.remove_from_cart}
+                                    addToCart={props.addToCart} 
+                                    removeFromCart={props.removeFromCart}
                                 />
                                 
                             </Grid>

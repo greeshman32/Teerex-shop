@@ -20,7 +20,7 @@ export const SearchBar = (props) => {
             fullWidth
             onChange={handle_change}
             variant="standard" />
-            <button className="search button" onClick={()=>props.handle_search(search_terms)}><SearchIcon/></button>
+            <button className="search button" onClick={()=>props.handleSearch(search_terms)}><SearchIcon/></button>
         </div>
     );
 }
