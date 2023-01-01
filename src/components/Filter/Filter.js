@@ -133,7 +133,6 @@ const Filters = (props) => {
             open={toggler}
             onClose={()=>handleToggler()}
             onOpen={()=>handleToggler()}
-            
           >
             {FilterOptions()}
           </SwipeableDrawer>

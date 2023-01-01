@@ -1,7 +1,7 @@
 import {  useState, useLayoutEffect } from "react";
 import './App.css';
-import Products  from "./components/Products"
-import Cart  from "./components/Cart";
+import Products  from "./components/Products/Products"
+import Cart  from "./components/Cart/Cart";
 import axios from "axios";
 import { Routes, Route } from "react-router-dom";
 import { useSnackbar } from "notistack";

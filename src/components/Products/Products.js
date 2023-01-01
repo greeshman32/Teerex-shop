@@ -1,8 +1,8 @@
-import { Header } from "./Header";
+import { Header } from "../Header";
 import Grid from '@mui/material/Unstable_Grid2';
-import SearchBar from "./SearchBar";
+import SearchBar from "../Search/SearchBar";
 import ProductCard from "./ProductCard";
-import Filters from "./Filter";
+import Filters from "../Filter/Filter";
 import "./css/Products.css"
 
 
