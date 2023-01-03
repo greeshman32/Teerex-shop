@@ -3,7 +3,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import SearchBar from "../Search/SearchBar";
 import ProductCard from "./ProductCard";
 import Filters from "../Filter/Filter";
-import "./css/Products.css"
+import "./Products.css"
 
 
 

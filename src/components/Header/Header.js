@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Paper } from "@mui/material";
-import "./css/Header.css";
+import "./Header.css";
 
 export const Header=(props)=>{
 

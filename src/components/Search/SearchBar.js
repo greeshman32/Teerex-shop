@@ -1,6 +1,6 @@
 import { TextField } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
-import "./css/SearchBar.css"
+import "./SearchBar.css"
 import { useState } from "react";
 
 export const SearchBar = (props) => {

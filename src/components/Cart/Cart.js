@@ -1,5 +1,5 @@
 import Header from "../Header"
-import "./css/CartPage.css"
+import "./CartPage.css"
 
 
 export const Cart=(props)=>{

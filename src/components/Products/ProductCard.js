@@ -1,7 +1,7 @@
 import Card from "@mui/material/Card"
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import "./css/ProductCard.css"
+import "./ProductCard.css"
 
 export const ProductCard = (props) => {
     const { product }=  props;
